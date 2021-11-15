@@ -147,6 +147,11 @@ spec:
           configMap:
             name: {{ .Values.curity.config.configurationConfigMap }}
         {{- end }}
+        {{- if .Values.curity.config.configurationJavascriptsConfigMap }}
+        - name: javascript-config-volume
+          configMap:
+            name: {{ .Values.curity.config.configurationJavascriptsConfigMap }}
+        {{- end }}
             {{- with .Values.nodeSelector }}
       nodeSelector:
             {{- toYaml . | nindent 8 }}
