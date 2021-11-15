@@ -93,6 +93,16 @@ spec:
               name: configmap-config
               readOnly: true
             {{- end }}
+            {{- if .Values.curity.config.configurationJavascriptsConfigMap }}
+            {{- range $item := required "\n curity.config.configurationJavascriptsConfigMapItemNames required when curity.config.configurationJavascriptsConfigMap is set. " .Values.curity.config.configurationJavascriptsConfigMapItemNames }}
+            {{- range $file := $item.files }}
+            - mountPath: /opt/idsvr/{{ $item.path }}/{{ $file }}
+              subPath: {{ $file }}
+              name: javascript-config-volume
+              readOnly: true
+            {{- end }}
+            {{- end }}
+            {{- end }}
           resources:
                 {{- toYaml .Values.resources | nindent 12 }}
         {{- if .Values.curity.runtime.logging.stdout }}
