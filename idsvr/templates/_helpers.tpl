@@ -41,3 +41,43 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- define "curity.metricsPort" -}}
 {{ add .Values.curity.healthCheckPort  1 }}
 {{- end -}}
+
+{{- define "curity.scopeTag" -}}
+<scope>
+  <id>{{- .id -}}</id>
+  {{- if .isPrefix }}
+  <is-prefix>{{- .isPrefix -}}</is-prefix>
+  {{- end -}}
+  {{- if .description }}
+  <description>{{- .description -}}</description>
+  {{- end -}}
+  {{- if .timeToLive }}
+  <time-to-live>{{- .timeToLive -}}</time-to-live>
+  {{- end -}}
+  {{- if .required }}
+  <required>{{- .required -}}</required>
+  {{- end -}}
+  {{- if .exposeInMetadata }}
+  <expose-in-metadata>{{- .exposeInMetadata -}}</expose-in-metadata>
+  {{- end }}
+</scope>
+{{- end -}}
+
+{{- define "curity.clientTag" -}}
+<client>
+  <id>{{- .id -}}</id>
+  {{- if .clientName }}
+  <client-name>{{- .clientName -}}</client-name>
+  {{- end -}}
+{{/*
+TODO add the rest of the parameters, see documentation
+https://curity.io/docs/idsvr/latest/configuration-guide/reference/config.html#authorization-server
+*/}}
+  {{- if .scope }}
+  {{- range $i := .scope }}
+  <scope>{{- . -}}</scope>
+  {{- end -}}
+  {{- end -}}
+</client>
+{{- end -}}
+
