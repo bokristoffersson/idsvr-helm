@@ -17,6 +17,10 @@ spec:
       app.kubernetes.io/name: {{ include "curity.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
       role: {{ include "curity.fullname" . }}-runtime
+  {{- with .Values.curity.runtime.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       labels:

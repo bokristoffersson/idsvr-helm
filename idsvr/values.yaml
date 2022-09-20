@@ -61,6 +61,13 @@ curity:
 #        - confsvc-internal
 #        - post-commit-scripts
 
+    strategy: {}
+# Specifies the strategy used to replace old Pods by new ones.
+# type can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
+#      type: RollingUpdate
+#      rollingUpdate:
+#        maxUnavailable: 25%
+#        maxSurge: 25%
 
   runtime:
     role: default
@@ -104,7 +111,13 @@ curity:
 #        - confsvc
 #        - confsvc-internal
 #        - post-commit-scripts
-
+    strategy: {}
+# Specifies the strategy used to replace old Pods by new ones.
+# type can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
+#      type: RollingUpdate
+#      rollingUpdate:
+#        maxUnavailable: 25%
+#        maxSurge: 25%
   config:
     uiEnabled: false
     backup: false

@@ -17,6 +17,10 @@ spec:
       app.kubernetes.io/name: {{ include "curity.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
       role: {{ include "curity.fullname" . }}-admin
+  {{- with .Values.curity.admin.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       labels:
@@ -254,3 +258,4 @@ spec:
       tolerations:
             {{- toYaml . | nindent 8 }}
       {{- end }}
+
